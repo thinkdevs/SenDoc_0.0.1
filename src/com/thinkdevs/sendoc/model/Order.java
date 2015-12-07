@@ -1,5 +1,6 @@
 package com.thinkdevs.sendoc.model;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
@@ -9,35 +10,130 @@ import javafx.beans.property.StringProperty;
  * @author Maxim Tikhanovskiy
  */
 public class Order {
-    private final StringProperty name;
-    private final StringProperty url;
+    private StringProperty bidNumber;
+    private StringProperty orderNumber;
+    private StringProperty dateOpen;
+    private StringProperty manager;
+    private StringProperty customer;
+    private StringProperty volumeNumber;
+    private StringProperty dateShipping;
+    private StringProperty repository;
 
-    public Order(StringProperty name, StringProperty url) {
-        this.name = name;
-        this.url = url;
+    public Order() {
+        orderNumber = new SimpleStringProperty("");
+        repository = new SimpleStringProperty("");
+        bidNumber = new SimpleStringProperty("");
+        dateOpen = new SimpleStringProperty("");
+        manager = new SimpleStringProperty("");
+        customer = new SimpleStringProperty("");
+        volumeNumber = new SimpleStringProperty("");
+        dateShipping = new SimpleStringProperty("");
     }
 
-    public String getName() {
-        return name.get();
+    public Order(StringProperty orderNumber, StringProperty repository){
+        this.orderNumber = orderNumber;
+        this.repository = repository;
+        bidNumber = new SimpleStringProperty("");
+        dateOpen = new SimpleStringProperty("");
+        manager = new SimpleStringProperty("");
+        customer = new SimpleStringProperty("");
+        volumeNumber = new SimpleStringProperty("");
+        dateShipping = new SimpleStringProperty("");
     }
 
-    public StringProperty nameProperty() {
-        return name;
+    public String getOrderNumber() {
+        return orderNumber.get();
     }
 
-    public void setName(String name) {
-        this.name.set(name);
+    public StringProperty orderNumberProperty() {
+        return orderNumber;
     }
 
-    public String getUrl() {
-        return url.get();
+    public void setOrderNumber(String name) {
+        this.orderNumber.set(name);
     }
 
-    public StringProperty urlProperty() {
-        return url;
+    public String getRepository() {
+        return repository.get();
     }
 
-    public void setUrl(String url) {
-        this.url.set(url);
+    public StringProperty repositoryProperty() {
+        return repository;
+    }
+
+    public void setRepository(String repository) {
+        this.repository.set(repository);
+    }
+
+    public String getBidNumber() {
+        return bidNumber.get();
+    }
+
+    public StringProperty bidNumberProperty() {
+        return bidNumber;
+    }
+
+    public void setBidNumber(String bidNumber) {
+        this.bidNumber.set(bidNumber);
+    }
+
+    public String getDateOpen() {
+        return dateOpen.get();
+    }
+
+    public StringProperty dateOpenProperty() {
+        return dateOpen;
+    }
+
+    public void setDateOpen(String dateOpen) {
+        this.dateOpen.set(dateOpen);
+    }
+
+    public String getManager() {
+        return manager.get();
+    }
+
+    public StringProperty managerProperty() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager.set(manager);
+    }
+
+    public String getCustomer() {
+        return customer.get();
+    }
+
+    public StringProperty customerProperty() {
+        return customer;
+    }
+
+    public void setCustomer(String customer) {
+        this.customer.set(customer);
+    }
+
+    public String getVolumeNumber() {
+        return volumeNumber.get();
+    }
+
+    public StringProperty volumeNumberProperty() {
+        return volumeNumber;
+    }
+
+    public void setVolumeNumber(String volumeNumber) {
+        this.volumeNumber.set(volumeNumber);
+    }
+
+    public String getDateShipping() {
+        return dateShipping.get();
+    }
+
+    public StringProperty dateShippingProperty() {
+        return dateShipping;
+    }
+
+    public void setDateShipping(String dateShipping) {
+        this.dateShipping.set(dateShipping);
     }
 }
