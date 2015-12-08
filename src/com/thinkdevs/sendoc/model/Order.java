@@ -136,4 +136,9 @@ public class Order {
     public void setDateShipping(String dateShipping) {
         this.dateShipping.set(dateShipping);
     }
+
+    @Override
+    public String toString() {
+        return orderNumber.get();
+    }
 }

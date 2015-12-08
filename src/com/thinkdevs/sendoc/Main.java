@@ -17,10 +17,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -37,9 +35,10 @@ public class Main extends Application {
     private ObservableList<Order> ordersData = FXCollections.observableArrayList();
 
     public Main() {
-        ordersData.add(new Order(new SimpleStringProperty("7170"), new SimpleStringProperty("C:\\orders\\7170")));
-        ordersData.add(new Order(new SimpleStringProperty("7171"), new SimpleStringProperty("C:\\orders\\7171")));
-        ordersData.add(new Order(new SimpleStringProperty("7172"), new SimpleStringProperty("C:\\orders\\7172")));
+        for(String orderName : Repository.getOrdersNameList()){
+            ordersData.add(new Order(new SimpleStringProperty(orderName), new SimpleStringProperty(orderName)));
+            System.out.println(orderName);
+        }
     }
 
     @Override

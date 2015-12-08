@@ -1,12 +1,12 @@
 package com.thinkdevs.sendoc.view.homeOverview;
 
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import com.thinkdevs.sendoc.Main;
 import com.thinkdevs.sendoc.model.Order;
+
+import java.util.List;
 
 /**
  * Order overview controller
@@ -14,16 +14,37 @@ import com.thinkdevs.sendoc.model.Order;
  * @author Maxim Tikhanovskiy
  */
 public class OrderOverviewController {
+
+    private List<Order> orders;
     @FXML
-    private TableView<Order> ordersTable;
+    private ListView<Order> ordersList;
     @FXML
-    private TableColumn<Order, String> orderNameColumn;
+    private ListCell<Order> orderNameColumn;
+
+
+    private StringProperty bidNumber;
+    private StringProperty orderNumber;
+    private StringProperty dateOpen;
+    private StringProperty manager;
+    private StringProperty customer;
+    private StringProperty volumeNumber;
+    private StringProperty dateShipping;
+    private StringProperty repository;
 
     @FXML
-    private Label orderNameLable;
-
+    private Label orderNumberLabel;
     @FXML
-    private Label orderUrlLabel;
+    private Label bidNumberLabel;
+    @FXML
+    private Label dateOpenLabel;
+    @FXML
+    private Label dateShippingLabel;
+    @FXML
+    private Label volumeNumberLabel;
+    @FXML
+    private Label managerLabel;
+    @FXML
+    private Label customerLabel;
 
     private Main main;
 
@@ -32,25 +53,37 @@ public class OrderOverviewController {
 
     @FXML
     private void initialize(){
-        orderNameColumn.setCellValueFactory(cellData -> cellData.getValue().orderNumberProperty());
+//        orderNameColumn.setCellValueFactory(cellData -> cellData.getValue().orderNumberProperty());
         showOrderHistory(null);
-        ordersTable.getSelectionModel().selectedItemProperty().addListener(
+        ordersList.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showOrderHistory(newValue)));
+
     }
 
     public void setMain(Main main) {
         this.main = main;
-        ordersTable.setItems(main.getOrdersData());
+        ordersList.setItems(main.getOrdersData());
     }
 
 
     private void showOrderHistory(Order order){
         if(order != null){
-            orderUrlLabel.setText(order.getRepository());
+            orderNumberLabel.setText(order.getOrderNumber());
+            bidNumberLabel.setText(order.getBidNumber());
+            dateOpenLabel.setText(order.getDateOpen());
+            dateShippingLabel.setText(order.getDateShipping());
+            volumeNumberLabel.setText(order.getVolumeNumber());
+            managerLabel.setText(order.getManager());
+            customerLabel.setText(order.getCustomer());
         }
         else {
-
-            orderUrlLabel.setText("");
+            orderNumberLabel.setText("----");
+            bidNumberLabel.setText("----");
+            dateOpenLabel.setText("----");
+            dateShippingLabel.setText("----");
+            volumeNumberLabel.setText("----");
+            managerLabel.setText("----");
+            customerLabel.setText("----");
         }
     }
 
@@ -65,7 +98,7 @@ public class OrderOverviewController {
 
     @FXML
     private void handleEditOrder(){
-        Order selectedOrder = ordersTable.getSelectionModel().getSelectedItem();
+        Order selectedOrder = ordersList.getSelectionModel().getSelectedItem();
         if(selectedOrder != null){
             boolean okClicked = main.showOrderEditDialog(selectedOrder);
             if(okClicked){
