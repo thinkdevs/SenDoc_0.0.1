@@ -3,6 +3,7 @@ package com.thinkdevs.sendoc;
 import com.thinkdevs.sendoc.model.Order;
 import com.thinkdevs.sendoc.model.OrderListWrapper;
 import com.thinkdevs.sendoc.view.homeOverview.OrderOverviewController;
+import com.thinkdevs.sendoc.view.message.Message;
 import com.thinkdevs.sendoc.view.orderDialogEdit.OrderDialogEditController;
 import com.thinkdevs.sendoc.view.rootLayout.RootLayoutController;
 import javafx.application.Application;
@@ -21,6 +22,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.prefs.Preferences;
 
 /**
@@ -33,12 +36,23 @@ public class Main extends Application {
     private Stage      primaryStage;
     private BorderPane rootLayout;
     private ObservableList<Order> ordersData = FXCollections.observableArrayList();
+    private ObservableList<Message> messages = FXCollections.observableArrayList();
 
     public Main() {
         for(String orderName : Repository.getOrdersNameList()){
             ordersData.add(new Order(new SimpleStringProperty(orderName), new SimpleStringProperty(orderName)));
             System.out.println(orderName);
         }
+
+
+        List<String> link = new ArrayList<>();
+        link.add("\\\\192.168.0.6\\KDProduction\\7105\\РЗА\\7105 - Модуль ЗРУ-35кВ. Освещение, отопление. Схема подключения.dwg");
+
+        messages.add(new Message("Менеджер", "Открыл наряд-заказ", link));
+        messages.add(new Message("Релейщик", "Подал заявку на заказ силового", null));
+        messages.add(new Message("Логист", "Заказал оборудование", null));
+        messages.add(new Message("Релейщик", "нарисовал схему", null));
+        messages.add(new Message("Конструктор", "отдал конструктив", null));
     }
 
     @Override
@@ -56,7 +70,9 @@ public class Main extends Application {
     public void initRoot() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/rootLayout/rootLayout.fxml"));
+            loader.setLocation(Main.class.getResource("view/rootLayout/rootLay.fxml"));
+            System.out.println(Main.class.getResource("view/rootLayout/rootLay.fxml"));
+            System.out.println(loader.getLocation());
             rootLayout = (BorderPane)loader.load();
 
             Scene scene = new Scene(rootLayout);
@@ -133,6 +149,10 @@ public class Main extends Application {
 
     public ObservableList<Order> getOrdersData() {
         return ordersData;
+    }
+
+    public ObservableList<Message> getMessages() {
+        return messages;
     }
 
     public static void main(String[] args) {

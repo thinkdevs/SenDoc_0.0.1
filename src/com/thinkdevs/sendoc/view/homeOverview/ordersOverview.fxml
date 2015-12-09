@@ -35,11 +35,7 @@
                            </tooltip></Button>
                      </children>
                   </HBox>
-                  <ListView fx:id="ordersList" layoutX="10.0" layoutY="44.0" prefHeight="674.0" prefWidth="193.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0">
-                     <effect>
-                        <DropShadow />
-                     </effect>
-                  </ListView>
+                  <ListView fx:id="ordersList" layoutX="10.0" layoutY="44.0" prefHeight="674.0" prefWidth="193.0" AnchorPane.bottomAnchor="58.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="766.0" prefWidth="834.0">
@@ -48,13 +44,10 @@
                     <items>
                       <AnchorPane prefHeight="618.0" prefWidth="824.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <ListView layoutY="95.0" minHeight="508.0" minWidth="791.0" prefHeight="508.0" prefWidth="791.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="105.0">
+                              <ListView fx:id="messageList" layoutY="95.0" minHeight="508.0" minWidth="791.0" prefHeight="508.0" prefWidth="791.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="105.0">
                                  <padding>
                                     <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                                  </padding>
-                                 <effect>
-                                    <DropShadow />
-                                 </effect>
                               </ListView>
                               <Label fx:id="orderNumberLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="136.0" layoutY="1.0" prefHeight="25.0" prefWidth="791.0" text="XXXX" textAlignment="CENTER" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                  <font>

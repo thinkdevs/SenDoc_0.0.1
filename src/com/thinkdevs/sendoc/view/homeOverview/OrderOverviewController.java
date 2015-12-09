@@ -1,10 +1,13 @@
 package com.thinkdevs.sendoc.view.homeOverview;
 
+import com.thinkdevs.sendoc.view.message.ListViewMessageCell;
+import com.thinkdevs.sendoc.view.message.Message;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import com.thinkdevs.sendoc.Main;
 import com.thinkdevs.sendoc.model.Order;
+import javafx.util.Callback;
 
 import java.util.List;
 
@@ -20,6 +23,8 @@ public class OrderOverviewController {
     private ListView<Order> ordersList;
     @FXML
     private ListCell<Order> orderNameColumn;
+    @FXML
+    private ListView<Message> messageList;
 
 
     private StringProperty bidNumber;
@@ -58,11 +63,19 @@ public class OrderOverviewController {
         ordersList.getSelectionModel().selectedItemProperty().addListener(
                 ((observable, oldValue, newValue) -> showOrderHistory(newValue)));
 
+        messageList.setCellFactory(new Callback<ListView<Message>, ListCell<Message>>() {
+            @Override
+            public ListCell<Message> call(ListView<Message> param) {
+                return new ListViewMessageCell();
+            }
+        });
+
     }
 
     public void setMain(Main main) {
         this.main = main;
         ordersList.setItems(main.getOrdersData());
+        messageList.setItems(main.getMessages());
     }
 
 
