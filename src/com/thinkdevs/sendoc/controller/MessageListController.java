@@ -1,10 +1,18 @@
-package com.thinkdevs.sendoc.view.message;
+package com.thinkdevs.sendoc.controller;
 
 import com.thinkdevs.sendoc.Main;
+import com.thinkdevs.sendoc.view.message.ListViewMessageCell;
+import com.thinkdevs.sendoc.model.Message;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.stage.FileChooser;
 import javafx.util.Callback;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Main class for start application

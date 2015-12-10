@@ -1,11 +1,12 @@
 package com.thinkdevs.sendoc;
 
+import com.thinkdevs.sendoc.controller.MessageNewDialogController;
 import com.thinkdevs.sendoc.model.Order;
 import com.thinkdevs.sendoc.model.OrderListWrapper;
-import com.thinkdevs.sendoc.view.homeOverview.OrderOverviewController;
-import com.thinkdevs.sendoc.view.message.Message;
-import com.thinkdevs.sendoc.view.orderDialogEdit.OrderDialogEditController;
-import com.thinkdevs.sendoc.view.rootLayout.RootLayoutController;
+import com.thinkdevs.sendoc.controller.OrderOverviewController;
+import com.thinkdevs.sendoc.model.Message;
+import com.thinkdevs.sendoc.controller.OrderDialogEditController;
+import com.thinkdevs.sendoc.controller.RootLayoutController;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -48,11 +49,7 @@ public class Main extends Application {
         List<String> link = new ArrayList<>();
         link.add("\\\\192.168.0.6\\KDProduction\\7105\\РЗА\\7105 - Модуль ЗРУ-35кВ. Освещение, отопление. Схема подключения.dwg");
 
-        messages.add(new Message("Менеджер", "Открыл наряд-заказ", link));
-        messages.add(new Message("Релейщик", "Подал заявку на заказ силового", null));
-        messages.add(new Message("Логист", "Заказал оборудование", null));
-        messages.add(new Message("Релейщик", "нарисовал схему", null));
-        messages.add(new Message("Конструктор", "отдал конструктив", null));
+        messages.add(new Message("Менеджер", "Открытие наряд-заказа", "Открыл наряд-заказ", link));
     }
 
     @Override
@@ -70,8 +67,8 @@ public class Main extends Application {
     public void initRoot() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/rootLayout/rootLay.fxml"));
-            System.out.println(Main.class.getResource("view/rootLayout/rootLay.fxml"));
+            loader.setLocation(Main.class.getResource("view/fxml/root.fxml"));
+            System.out.println(Main.class.getResource("view/fxml/root.fxml"));
             System.out.println(loader.getLocation());
             rootLayout = (BorderPane)loader.load();
 
@@ -98,7 +95,7 @@ public class Main extends Application {
     public void showHomeOverview(){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/homeOverview/ordersOverview.fxml"));
+            loader.setLocation(Main.class.getResource("view/fxml/ordersOverview.fxml"));
             AnchorPane home = (AnchorPane)loader.load();
             rootLayout.setCenter(home);
 
@@ -119,7 +116,7 @@ public class Main extends Application {
     public boolean showOrderEditDialog(Order order){
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("view/orderDialogEdit/orderDialogEdit.fxml"));
+            loader.setLocation(Main.class.getResource("view/fxml/orderDialogEdit.fxml"));
             AnchorPane page = (AnchorPane) loader.load();
 
             Stage dialogStage = new Stage();
@@ -142,6 +139,35 @@ public class Main extends Application {
             return false;
         }
     }
+
+
+    public boolean showMessageNewDialog(){
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("view/fxml/messageDialogNew.fxml"));
+            AnchorPane page = (AnchorPane) loader.load();
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Новое сообщение");
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            Scene scene = new Scene(page);
+            dialogStage.setScene(scene);
+
+            MessageNewDialogController controller = loader.getController();
+            controller.setDialogStage(dialogStage);
+            controller.setMain(this);
+
+            dialogStage.showAndWait();
+
+            return controller.isOkClicked();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
     public Stage getPrimaryStage() {
         return primaryStage;

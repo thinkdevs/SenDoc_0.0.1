@@ -1,10 +1,11 @@
-package com.thinkdevs.sendoc.view.rootLayout;
+package com.thinkdevs.sendoc.controller;
 
 import com.thinkdevs.sendoc.Main;
 import javafx.fxml.FXML;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Controller class for menu
@@ -86,7 +87,11 @@ public class RootLayoutController {
      */
     @FXML
     private void handleAbout() {
-
+        try {
+            Runtime.getRuntime().exec("explorer.exe /select," + "");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

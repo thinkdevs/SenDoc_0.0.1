@@ -1,7 +1,7 @@
-package com.thinkdevs.sendoc.view.homeOverview;
+package com.thinkdevs.sendoc.controller;
 
 import com.thinkdevs.sendoc.view.message.ListViewMessageCell;
-import com.thinkdevs.sendoc.view.message.Message;
+import com.thinkdevs.sendoc.model.Message;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -124,9 +124,14 @@ public class OrderOverviewController {
             alert.setTitle("Ничего не выбрано");
             alert.setHeaderText("Зазказ не выбран");
             alert.setContentText("Выберете заказ для редактирования из таблицы");
-
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    private void handleNewMessage(){
+        System.out.println("new message");
+        main.showMessageNewDialog();
     }
 
 }

@@ -1,35 +1,36 @@
-package com.thinkdevs.sendoc.view.orderDialogEdit;
+package com.thinkdevs.sendoc.controller;
 
-import com.thinkdevs.sendoc.model.Order;
+import com.thinkdevs.sendoc.Main;
+import com.thinkdevs.sendoc.model.Message;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 /**
  * Order DialogEdit controller
  *
  * @author Maxim Tikhanovskiy
  */
-public class OrderDialogEditController {
+public class MessageNewDialogController {
 
     @FXML
-    private TextField bidNumber;
+    private TextField textFieldAuthorMsg;
     @FXML
-    private TextField dateOpen;
+    private TextField textFieldSubjectMsg;
     @FXML
-    private TextField manager;
+    private TextArea textAreaTextMsg;
     @FXML
-    private TextField customer;
+    private ListView<String> listViewFilesMsg;
     @FXML
-    private TextField orderNumber;
+    private Button buttonAddFileMsg;
     @FXML
-    private TextField volumeNumber;
-    @FXML
-    private TextField dateShipping;
+    private Button buttonSendMsg;
 
     private Stage dialogStage;
-    private Order order;
+    private Message message;
+    private Main main;
     private boolean okClicked = false;
 
 
@@ -47,22 +48,6 @@ public class OrderDialogEditController {
     }
 
     /**
-     * Sets the Order to be edited in the dialog.
-     * @param order
-     */
-    public void setOrder(Order order) {
-        this.order = order;
-
-        bidNumber.setText(order.getBidNumber());
-        dateOpen.setText(order.getDateOpen());
-        manager.setText(order.getManager());
-        customer.setText(order.getCustomer());
-        orderNumber.setText(order.getOrderNumber());
-        volumeNumber.setText(order.getVolumeNumber());
-        dateShipping.setText(order.getDateShipping());
-    }
-
-    /**
      * Return true if user clicked 'OK', false otherwise
      * @return
      */
@@ -74,16 +59,14 @@ public class OrderDialogEditController {
      * Called when the user clicks 'OK'
      */
     @FXML
-    private void handleOk(){
+    private void handleSend(){
         if(isInputValid()){
-            order.setBidNumber(bidNumber.getText());
-            order.setDateOpen(dateOpen.getText());
-            order.setManager(manager.getText());
-            order.setCustomer(customer.getText());
-            order.setOrderNumber(orderNumber.getText());
-            order.setVolumeNumber(volumeNumber.getText());
-            order.setDateShipping(dateShipping.getText());
-
+            String author = textFieldAuthorMsg.getText();
+            String subject = textFieldSubjectMsg.getText();
+            String textMsg = textAreaTextMsg.getText();
+            List<String> filesMsg = listViewFilesMsg.getItems();
+            message = new Message(author, subject, textMsg, filesMsg);
+            main.getMessages().add(message);
             okClicked = true;
             dialogStage.close();
         }
@@ -97,7 +80,6 @@ public class OrderDialogEditController {
         dialogStage.close();
     }
 
-
     /**
      * Validates user input in the text fields
      * @return true if the input valid
@@ -105,8 +87,11 @@ public class OrderDialogEditController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if(null == orderNumber.getText() || orderNumber.getText().length() == 0){
-            errorMessage += "Введите номер наряд заказа \n";
+        if(null == textFieldAuthorMsg.getText() || textFieldAuthorMsg.getText().length() == 0){
+            errorMessage += "Кто автор? \n";
+        }
+        if(null == textFieldSubjectMsg.getText() || textFieldSubjectMsg.getText().length() == 0){
+            errorMessage += "Введите тему! \n";
         }
 
         if(errorMessage.length() == 0){
@@ -123,5 +108,14 @@ public class OrderDialogEditController {
 
             return false;
         }
+    }
+
+    @FXML
+    private void handleAdd(){
+
+    }
+
+    public void setMain(Main main) {
+        this.main = main;
     }
 }
